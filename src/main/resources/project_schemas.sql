@@ -1,15 +1,19 @@
+/* DROP TABLE STATMENTS*/
+
 DROP TABLE IF EXISTS material; 
 DROP TABLE IF EXISTS step;
 DROP TABLE IF EXISTS project_category;
 DROP TABLE IF EXISTS category;
 DROP TABLE IF EXISTS project;
 
+
+/* CREATE TABLE STATMENTS*/
 CREATE TABLE project (
 project_id  INT auto_increment NOT NULL,
 project_name VARCHAR(128) NOT NULL,
 estimated_hours DECIMAL (7.2),
 actual_hours DECIMAL (7.2),
-Difficulty INT,
+difficulty INT,
 notes TEXT,
 created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 PRIMARY KEY (project_id)
