@@ -17,6 +17,7 @@ public class ProjectsApp {
     
 
 	private Scanner scanner = new Scanner(System.in);
+    private Project  curProject; 
     private ProjectService projectService = new ProjectService();
    
 	
@@ -25,7 +26,10 @@ public class ProjectsApp {
 
 	//Formatter:off
 	private List<String> operations = List.of(
-			"1) add a project"
+			"1) Add a project" ,
+			"2) List projects" ,
+			"3) Select a project"
+			
 			
 	);
 	
@@ -67,6 +71,14 @@ public static void main(String[] args) {
                     case 1:
                         createProject();
                         break;
+                        
+                    case 2:
+                    	listProjects();
+                    	break;
+                    	
+                    case 3:
+                    	selectProject();
+                    	break;
 
                     default:
                         System.out.println("\n" + selection + " is not a valid selection. Try again.");
@@ -79,7 +91,31 @@ public static void main(String[] args) {
     }
 
 
-    private void createProject() {  
+    private void selectProject() {
+		listProjects();
+		Integer projectId = getIntInput("Enter a project ID to select a project");
+		
+        curProject = null;
+		
+		curProject = projectService.fetchProjectById(projectId); 
+		
+	}
+
+
+
+	private void listProjects() {
+        List<Project> projects = projectService.fetchAllProjects();
+        
+        System.out.println("\nProjects:");
+        
+        projects.forEach(project -> System.out
+        .println(" " + project.getProjectId()
+       + ": " + project.getProjectName()));
+    }
+
+
+
+	private void createProject() {  
     String projectName = getStringInput("Enter the project name");
     BigDecimal estimatedHours = getDecimalInput("Enter the estimated hours");
     BigDecimal actualHours = getDecimalInput("Enter the actual hours");
@@ -158,12 +194,20 @@ public static void main(String[] args) {
         return input.isBlank() ? null : input.trim();
     }
 
-     private void printOperations() {
+
+    private void printOperations() {
         System.out.println("\nThese are the available selections. Press the Enter key to quit:");
-        
         operations.forEach(line -> System.out.println(" " + line));
-    }
-    
+
+		
+        
+		if(Objects.isNull(curProject)) {
+			System.out.println("\nYou are not working with a project.");
+		} else {
+			System.out.println("\nYou are working with project: " + curProject);
+		}
+	}
+
 }
 
 	
