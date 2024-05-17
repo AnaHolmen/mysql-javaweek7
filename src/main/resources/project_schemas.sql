@@ -60,3 +60,16 @@ cost DECIMAL (7.2),
  PRIMARY KEY (material_id),
  FOREIGN KEY (project_id) REFERENCES project (project_id) ON DELETE CASCADE
 );
+
+INSERT INTO project (project_name, estimated_hours, actual_hours, difficulty, notes) VALUES ('Hang a Door' , 4.00 , 3.00, 3 , null);
+INSERT INTO material (project_id, material_name, num_required, cost) VALUES (1, 'Door Hangers', 1, 25.00);
+INSERT INTO material (project_id, material_name, num_required, cost) VALUES (1, 'Screws', 20, 4.50);
+INSERT INTO step (project_id , step_text, step_order) VALUES ( 1, 'Align hangers on opening side of door vertically on the wall',1);
+INSERT INTO step (project_id , step_text, step_order) VALUES ( 1, 'Screw hangers into frame', 2 );
+
+INSERT INTO category (category_name) VALUES ('Door and Windows');
+INSERT INTO category (category_name) VALUES ('Repairs');
+INSERT INTO category (category_name) VALUES ('Gardening');
+
+INSERT INTO project_category (project_id , category_id) VALUES (1, 1); 
+INSERT INTO project_category (project_id , category_id) VALUES (1, 2);
